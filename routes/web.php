@@ -1,23 +1,16 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ProfileController;
-
-use App\Models\Account;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/dashboard', [AccountController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Route::get('/accounts/{account}/edit', [AccountController::class, 'edit'])->middleware(['auth'])->name('accounts.edit');
+Route::put('/accounts/{account}', [AccountController::class, 'update'])->middleware(['auth'])->name('accounts.update');
 Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
-
-    $accounts = Account::where('user_id', Auth::id())->get();
-
-    return view('dashboard',[
-        'accounts' => $accounts
+    return view('welcome', [
     ]);
-
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -25,5 +18,4 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
