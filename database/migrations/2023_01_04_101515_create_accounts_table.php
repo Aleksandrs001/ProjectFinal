@@ -14,6 +14,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->string('number' )->unique();
             $table->string('label' )->nullable();
+            $table->string('valute')->default('EUR');
             $table->integer('balance')->default(0);
             $table->timestamps();
         });

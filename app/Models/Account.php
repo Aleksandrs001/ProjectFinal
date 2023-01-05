@@ -14,6 +14,7 @@ class Account extends Model
         'number',
         'balance',
         'label',
+        'valute',
     ];
 
     public function user(): BelongsTo
@@ -22,11 +23,10 @@ class Account extends Model
     }
     public function getCurrencySymbolAttribute(): string
     {
-        $currency= 'EUR';
-        if($currency == 'EUR'){
-            return '€';
-        }
-        return '$';
+        return $this->valute;
     }
-
+    public function getFormattedBalance(): string
+    {
+        return number_format($this->balance /100, 2);
+    }
 }

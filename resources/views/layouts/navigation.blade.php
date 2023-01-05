@@ -34,16 +34,31 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+
+                        <x-dropdown-link href="/">
+                            Home
                         </x-dropdown-link>
 
+
+
+                        <x-dropdown-link href="/balance-transfer">
+                            Balance Transfer
+                        </x-dropdown-link>
+
+                        <x-dropdown-link  href="/accounts/{{ Auth::id() }}/edit">
+                            Edit Account
+                        </x-dropdown-link>
+
+                        <x-dropdown-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
+
+                        </x-dropdown-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
                             <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                             onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>

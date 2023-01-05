@@ -9,20 +9,24 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function index()
+    public function index(XMLController $currency)
     {
         $accounts = Account::where('user_id', Auth::id())->get();
         return view('dashboard',[
             'accounts' => $accounts,
+            'id'=>Auth::id(),
+            'currency' => $currency->index(),
         ]);
     }
     public function edit(Account $account)
     {
-        if($account->user_id != Auth::id()){
+
+                if($account->user_id != Auth::id()){
             abort(403);
         }
         return view('accounts.edit', [
             'account' => $account,
+
         ]);
     }
 
