@@ -14,18 +14,18 @@ class AccountController extends Controller
         $accounts = Account::where('user_id', Auth::id())->get();
         return view('dashboard',[
             'accounts' => $accounts,
-            'id'=>Auth::id(),
             'currency' => $currency->index(),
         ]);
     }
     public function edit(Account $account)
     {
-
+        $accounts = Account::where('user_id', Auth::id())->get();
                 if($account->user_id != Auth::id()){
             abort(403);
         }
         return view('accounts.edit', [
             'account' => $account,
+            'accounts' => $accounts,
 
         ]);
     }

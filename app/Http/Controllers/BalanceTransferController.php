@@ -14,6 +14,7 @@ class BalanceTransferController extends Controller
     {
         $currency = $currency->index();
         $accounts = Account::where('user_id', Auth::id())->get();
+
         return view('balance-transfer', [
             'accounts' => $accounts,
             'currency' => $currency,
@@ -22,12 +23,6 @@ class BalanceTransferController extends Controller
 
     public function transfer( Request $request):RedirectResponse
     {
-
-        $rules = [
-            'from' => 'required|exists:accounts,id',
-            'to' => 'required|exists:accounts,id',
-            'amount' => 'required|numeric|min:0.01',
-        ];
         $fromAccount = Account::findOrFail($request->get('from_account'));
 
         if ($fromAccount->user_id != Auth::id()){

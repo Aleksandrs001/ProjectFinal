@@ -16,9 +16,6 @@ use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
     public function create(): View
     {
         return view('auth.register');
@@ -44,7 +41,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $account= (new Account())->fill([
-            'number' => 'LV'.rand(1000000000, 9999999999),
+            'number' => 'EUR'.rand(1000000000, 9999999999),
             'balance' => 0,
         ]);
         $account->user()->associate($user);

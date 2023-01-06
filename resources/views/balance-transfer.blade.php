@@ -13,7 +13,7 @@
                         @csrf
                         <div class="mb-4">
                             <label for="account" class="sr-only">Account</label>
-                            <select name="from_account" id="from_account" class="bg-gray-100 border-2 w-full p-4 rounded-lg">
+                            <select name="from_account" id="from_account" class="bg-white border-2 w-full p-4 rounded-lg">
                                 @foreach($accounts as $account)
                                     <option value="{{ $account->id }}">
                                       {{ $account->number }} / {{ $account->getFormattedBalance() }} {{ $account->currencySymbol}}</option>
@@ -23,16 +23,17 @@
                         <div class="mb-4">
                             <label for="account" class="sr-only">Account</label>
                         <input type="text" name="to_account" id="to_account" placeholder="Account Number"
-                                   class="bg-gray-100 border-2 w-full p-4 rounded-lg" value="">
+                                   class="bg-white border-2 w-full p-4 rounded-lg" value="">
                         <div class="mb-4">
                             <label for="number" class="sr-only">Amount</label>
                             <input type="text" name="amount" id="amount" placeholder="Amount"
-                                   class="bg-gray-100 border-2 w-full p-4 rounded-lg" value="">
+                                   class="bg-white border-2 w-full p-4 rounded-lg" value="">
                         </div>
                         <div>
                             <button type="submit" class="bg-blue-500 text-black px-4 py-3 rounded font-medium ">Update
                             </button>
                         </div>
+
                         </div>
                     </form>
                 </div>

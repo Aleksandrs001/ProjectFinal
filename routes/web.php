@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BalanceTransferController;
+use App\Http\Controllers\CreateCurrencyAcc;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\XMLController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard')
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/balance-transfer', [BalanceTransferController::class, 'showForm'])->name('balance-transfer.showForm');
     Route::post('/balance-transfer', [BalanceTransferController::class, 'transfer'])->name('balance-transfer');
+    Route::post('/createCurrencyAcc', [CreateCurrencyAcc::class, 'createCurrencyAcc'])->name('createCurrencyAcc');
     Route::get('/accounts/{account}/edit', [AccountController::class, 'edit'])->name('accounts.edit');
     Route::put('/accounts/{account}', [AccountController::class, 'update'])->name('accounts.update');
 });
