@@ -29,4 +29,8 @@ class Account extends Model
     {
         return number_format($this->balance /100, 2);
     }
+    public function userCard(): BelongsTo
+    {
+        return $this->belongsTo(UserCard::class);
+    }
 }

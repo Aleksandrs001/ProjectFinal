@@ -13,28 +13,38 @@
                         @csrf
                         <div class="mb-4">
                             <label for="account" class="sr-only">Account</label>
-                            <select name="from_account" id="from_account" class="bg-white border-2 w-full p-4 rounded-lg">
+                            <select name="from_account" id="from_account"
+                                    class="bg-white border-2 w-full p-4 rounded-lg">
                                 @foreach($accounts as $account)
                                     <option value="{{ $account->id }}">
-                                      {{ $account->number }} / {{ $account->getFormattedBalance() }} {{ $account->currencySymbol}}</option>
+                                        {{ $account->number }}
+                                        / {{ $account->getFormattedBalance() }} {{ $account->currencySymbol}}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-4">
                             <label for="account" class="sr-only">Account</label>
-                        <input type="text" name="to_account" id="to_account" placeholder="Account Number"
+                            <input type="text" name="to_account" id="to_account" placeholder="Account Number"
                                    class="bg-white border-2 w-full p-4 rounded-lg" value="">
-                        <div class="mb-4">
-                            <label for="number" class="sr-only">Amount</label>
-                            <input type="text" name="amount" id="amount" placeholder="Amount"
-                                   class="bg-white border-2 w-full p-4 rounded-lg" value="">
-                        </div>
-                        <div>
-                            <button type="submit" class="bg-blue-500 text-black px-4 py-3 rounded font-medium ">Update
-                            </button>
+                            <div class="mb-4">
+                                <label for="number" class="sr-only">Amount</label>
+                                <input type="text" name="amount" id="amount" placeholder="Amount"
+                                       class="bg-white border-2 w-full p-4 rounded-lg" value="">
+                            </div>
+                            <div>
+                                <label for="keycard">Key Card Number:</label><br>
+                                <input type="text" id="keycard" name="keycard"
+                                       placeholder="Enter key card number:{{ $code }}"><br>
+{{--                                <input type="submit" value="Submit">--}}
+                            </div>
+                            <div>
+                                <button type="submit" class="bg-blue-500 text-black px-4 py-3 rounded font-medium ">
+                                    Submit
+                                </button>
+                            </div>
                         </div>
 
-                        </div>
+
                     </form>
                 </div>
             </div>

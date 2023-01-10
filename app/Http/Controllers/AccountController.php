@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Repository\XMLRepository;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
-    public function index(XMLController $currency)
+    public function index(XMLRepository $currency)
     {
         $accounts = Account::where('user_id', Auth::id())->get();
         return view('dashboard',[
@@ -23,6 +24,7 @@ class AccountController extends Controller
                 if($account->user_id != Auth::id()){
             abort(403);
         }
+
         return view('accounts.edit', [
             'account' => $account,
             'accounts' => $accounts,

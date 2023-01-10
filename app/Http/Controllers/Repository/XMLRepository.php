@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Repository;
 
+use App\Http\Controllers\Controller;
 
-use App\Models\Account;
-use Illuminate\Support\Facades\Auth;
-
-class XMLController extends Controller
+class XMLRepository extends Controller
 {
     public function index()
     {

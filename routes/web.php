@@ -4,14 +4,15 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\BalanceTransferController;
 use App\Http\Controllers\CreateCurrencyAcc;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\XMLController;
+use App\Http\Controllers\Session;
 use Illuminate\Support\Facades\Route;
 
+
+Session::initialize();
 Route::get('/', function () {
     return view('welcome');
-
-})->name('dashboard');
-
+}
+)->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard');
