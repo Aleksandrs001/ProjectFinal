@@ -40,14 +40,15 @@
                             Home
                         </x-dropdown-link>
 
-
-
                         <x-dropdown-link href="/balance-transfer">
                             Balance Transfer
                         </x-dropdown-link>
 
-                        <x-dropdown-link  href="/accounts/{{ Auth::id() }}/edit">
+                        <x-dropdown-link href="/accounts/{{ Auth::user()->id }}/edit">
                             Edit Account
+                        </x-dropdown-link>
+                        <x-dropdown-link href="/transaction-history">
+                            Transaction History
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('profile.edit')">

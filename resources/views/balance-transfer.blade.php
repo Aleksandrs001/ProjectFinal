@@ -41,6 +41,15 @@
                                 <button type="submit" class="bg-blue-500 text-black px-4 py-3 rounded font-medium ">
                                     Submit
                                 </button>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li class="text-red-600 font-small">*{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 

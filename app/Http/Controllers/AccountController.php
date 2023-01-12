@@ -24,7 +24,6 @@ class AccountController extends Controller
                 if($account->user_id != Auth::id()){
             abort(403);
         }
-
         return view('accounts.edit', [
             'account' => $account,
             'accounts' => $accounts,
@@ -39,6 +38,7 @@ class AccountController extends Controller
         }
         $account->update([
             'label' => $request->get('label'),
+
         ]);
 
         return redirect()->route('accounts.edit', $account);

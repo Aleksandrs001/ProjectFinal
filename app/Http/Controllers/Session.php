@@ -2,18 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 class Session extends Controller
 {
-
     private static array $data = [];
 
     public static function initialize(): void
     {
         session_start();
         self::$data = $_SESSION;
-
     }
 
     public static function put(string $key, $value): void
@@ -30,5 +26,4 @@ class Session extends Controller
     {
         return self::$data["$key"];
     }
-
 }

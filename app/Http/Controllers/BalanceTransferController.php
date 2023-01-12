@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Repository\XMLRepository;
+use App\Models\AccHistory;
 use App\Models\Account;
 use App\Models\UserCard;
 use Illuminate\Http\RedirectResponse;
@@ -12,42 +13,88 @@ use Illuminate\View\View;
 
 class BalanceTransferController extends Controller
 {
-
     public function showForm(XMLRepository $currency): View
     {
-        $currency = $currency->index();
+//        $currency = $currency->index();
         $accounts = Account::where('user_id', Auth::id())->get();
         return view('balance-transfer', [
             'accounts' => $accounts,
-            'currency' => $currency,
+            'currency' => $currency->index(),
             'code' => Session::getData("rand"),
         ]);
     }
 
-    public function transfer(Request $request): RedirectResponse
+    public function transfer(Request $request, XMLRepository $currency): RedirectResponse
     {
+//        var_dump($currency->index());die;
         $DBUserCodes = UserCard::where('user_id', Auth::id())->first()->user_code;
         $DBcode = explode(" ", $DBUserCodes);
-        $PostUserCode = $request['keycard'];
-        Session::put("rand", rand(0, 4));
+//        $PostUserCode = $request['keycard'];
+        Session::put("rand", rand(0, 9));
 
         $fromAccount = Account::findOrFail($request->get('from_account'));
 
-        if ($fromAccount->user_id != Auth::id() ||
-            $PostUserCode != $DBcode[Session::getData("rand")]) {
+        $request->validate([
+            'from_account' => [
+                'required',
+            ],
+            'to_account' => [
+                'required',
+                'exists:accounts,number',
+            ],
+            'amount' => [
+                'required',
+                'numeric',
+                'min:0.01',
+                'max:' . $fromAccount->balance / 100,
+            ],
+            'keycard' => [
+                'required',
+                'numeric',
+                'digits:4',
+                'in:' . $DBcode[Session::getData("rand")],
+            ],
+        ]);
+        if ($fromAccount->user_id != Auth::id()) {
             return redirect()->back();
         }
         $toAccount = Account::where('number', $request->get('to_account'))->firstOrFail();
         $amount = $request->get('amount') * 100;
-
+        $historyFrom = AccHistory::where('user_id', Auth::id())->first();
+        $currency = $currency->index();
+        $fromRate = [];
+        foreach ($currency as $value) {
+            $fromRate[$value['ID']] = $value['Rate'];
+        }
+        if ($fromAccount->valute == 'EUR' || $toAccount->valute == 'EUR') {
+            $fromRate['EUR'] = 1;
+        }
+        $historyFrom->create([
+            'user_id' => Auth::id(),
+            'currency_symbol' => $fromAccount->valute,
+            'history' => 'Transferred ' . $amount / 100 * $fromRate[$fromAccount->valute] .
+                ' ' . $fromAccount->valute .
+                ' from ' . $fromAccount->number .
+                ' to ' . $toAccount->number,
+            'transferred_from' => $fromAccount->number,
+            'transferred_to' => $toAccount->number,
+        ]);
         $fromAccount->update([
-            'balance' => $fromAccount->balance - $amount,
+            'balance' => $fromAccount->balance - $amount * $fromRate[$fromAccount->valute],
         ]);
         $toAccount->update([
-            'balance' => $toAccount->balance + $amount,
+            'balance' => $toAccount->balance + $amount * $fromRate[$toAccount->valute],
+        ]);
+        $historyTo = AccHistory::where('user_id', Auth::id())->first();
+        $historyTo->create([
+            'user_id' => $toAccount->user_id,
+            'currency_symbol' => $fromAccount->valute,
+            'history' => 'Received ' . $amount / 100 * $fromRate[$toAccount->valute] .
+                ' ' . $fromAccount->valute . ' from ' .
+                $fromAccount->number . ' to ' . $toAccount->number,
+            'transferred_from' => $fromAccount->number,
+            'transferred_to' => $toAccount->number,
         ]);
         return redirect()->back();
-
-
     }
 }

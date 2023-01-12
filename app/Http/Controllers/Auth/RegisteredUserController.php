@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\AccHistory;
 use App\Models\Account;
 use App\Models\User;
 use App\Models\UserCard;
@@ -54,7 +55,23 @@ class RegisteredUserController extends Controller
 
         UserCard::create([
             'user_id' => $user->id,
-            'user_code' => rand(1000, 9999) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999) . ' ' . rand(1000, 9999),
+            'user_code' =>
+                rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999) .
+                ' ' . rand(1000, 9999),
+        ]);
+
+        AccHistory::create([
+            'user_id' => $user->id,
+            'history' => 'Account created',
+
         ]);
 
         return redirect(RouteServiceProvider::HOME);

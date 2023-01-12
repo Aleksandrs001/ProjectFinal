@@ -15,6 +15,7 @@ class Account extends Model
         'balance',
         'label',
         'valute',
+
     ];
 
     public function user(): BelongsTo
