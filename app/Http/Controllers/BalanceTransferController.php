@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Repository\XMLRepository;
+use App\Http\Requests\BalanceTransferRequest;
 use App\Models\AccHistory;
 use App\Models\Account;
-use App\Models\UserCard;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -15,7 +14,7 @@ class BalanceTransferController extends Controller
 {
     public function showForm(XMLRepository $currency): View
     {
-//        $currency = $currency->index();
+//        Session::put("rand", rand(0, 9));
         $accounts = Account::where('user_id', Auth::id())->get();
         return view('balance-transfer', [
             'accounts' => $accounts,
@@ -24,37 +23,12 @@ class BalanceTransferController extends Controller
         ]);
     }
 
-    public function transfer(Request $request, XMLRepository $currency): RedirectResponse
+    public function transfer(BalanceTransferRequest $request, XMLRepository $currency): RedirectResponse
     {
-//        var_dump($currency->index());die;
-        $DBUserCodes = UserCard::where('user_id', Auth::id())->first()->user_code;
-        $DBcode = explode(" ", $DBUserCodes);
-//        $PostUserCode = $request['keycard'];
         Session::put("rand", rand(0, 9));
 
         $fromAccount = Account::findOrFail($request->get('from_account'));
 
-        $request->validate([
-            'from_account' => [
-                'required',
-            ],
-            'to_account' => [
-                'required',
-                'exists:accounts,number',
-            ],
-            'amount' => [
-                'required',
-                'numeric',
-                'min:0.01',
-                'max:' . $fromAccount->balance / 100,
-            ],
-            'keycard' => [
-                'required',
-                'numeric',
-                'digits:4',
-                'in:' . $DBcode[Session::getData("rand")],
-            ],
-        ]);
         if ($fromAccount->user_id != Auth::id()) {
             return redirect()->back();
         }
