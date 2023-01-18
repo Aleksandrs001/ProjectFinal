@@ -35,19 +35,21 @@
                         </div>
                     </li>
             <div class="flex justify-center">
-                <form action="/crypto{{ $crypto->getSymbol()  }}" method="post" class="mr-4">
+                <form action="/cryptoBuy" method="post" >
+                    @csrf
                     <label>
                         <input type="text" name="buyAmount" placeholder="Enter amount">
                     </label>
-                    <button class="px-4 py-2 rounded bg-green-500 text-white font-bold" type="submit">
+                    <button class="px-4 py-2 rounded bg-green-500 text-black font-bold" type="submit">
                         Buy
                     </button>
                 </form>
-                <form action="/crypto{{ $crypto->getSymbol()  }}" method="post">
+                <form action="/cryptoSell" method="post">
+                    @csrf
                     <label>
                         <input type="text" name="sellAmount" placeholder="Enter amount">
                     </label>
-                    <button class="px-4 py-2 rounded bg-red-500 text-white font-bold" type="submit">
+                    <button class="px-4 py-2 rounded bg-red-500 text-black font-bold" type="submit">
                         Sell
                     </button>
                 </form>

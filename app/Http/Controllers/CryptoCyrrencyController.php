@@ -22,10 +22,8 @@ class CryptoCyrrencyController extends Controller
         ]);
     }
 
-    public function userChoice(string $vars, Request $request): View
+    public function userChoice(string $vars): View
     {
-        var_dump($request->get('buyAmount'));
-        var_dump($request->get('sellAmount'));
         $userSymbol = Account::where('user_id', Auth::id())->get();
 
         $valuteSymbol = $userSymbol[0]['valute'];
@@ -38,6 +36,18 @@ class CryptoCyrrencyController extends Controller
         return view('/crypto', [
             'crypt' => $coinMarketCap->getData(),
         ]);
+    }
+    public function buyCrypto(Request $request)
+    {
+
+        return view('/crypto');
+    }
+
+    public function sellCrypto(Request $request)
+    {
+var_dump("hello");
+        var_dump($request->get('sellAmount'));
+        die;
     }
 }
 
