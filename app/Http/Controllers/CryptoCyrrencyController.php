@@ -9,13 +9,11 @@ use Illuminate\Http\Request;
 class CryptoCyrrencyController extends Controller
 {
 
-    private const API_URL = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/';
-
     public function getData(Request $request)
     {
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest';
         $parameters = [
-            'symbol' => 'BTC,ETH,XRP,BCH,USDT,LTC,EOS,BNB,BSV,TRX',
+            'symbol' => $request->get('search') ?? 'BTC,ETH,XRP,BCH,USDT,LTC,EOS,BNB,BSV,TRX',
             'convert' => 'EUR'
         ];
 
@@ -38,10 +36,10 @@ class CryptoCyrrencyController extends Controller
         $response = curl_exec($curl); // Send the request, save the response
         $cryptoData = (json_decode($response)); // print json decoded response
         curl_close($curl); // Close request
-        $crypto = [];
-        foreach ($cryptoData->data as $crypto) {
-            $crypto = new CryptoCurrencyRequest(
-                $crypto->slug,
+        $crypt = [];
+        foreach ($cryptoData->data as  $crypto) {
+            $crypt[] = new CryptoCurrencyRequest(
+                $crypto->id,
                 $crypto->name,
                 $crypto->symbol,
                 $crypto->quote->EUR->price,
@@ -49,7 +47,11 @@ class CryptoCyrrencyController extends Controller
                 $crypto->quote->EUR->percent_change_24h,
                 $crypto->quote->EUR->percent_change_7d,
             );}
-
+//        echo '<pre>';
+//var_dump($crypt);
+ return view('/crypto', [
+        'crypt' => $crypt,
+    ]);
     }
 }
 

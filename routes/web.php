@@ -9,7 +9,8 @@ use App\Http\Controllers\Session;
 use App\Http\Controllers\TransactionHistoryController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('crypto', [CryptoCyrrencyController::class, 'getData']);
+Route::get('crypto', [CryptoCyrrencyController::class, 'getData'])->name('crypto');
+Route::get('crypto{symbol}', [CryptoCyrrencyController::class, 'getData'])->name('crypto');
 
 Session::initialize();
 Route::get('/', function () {
