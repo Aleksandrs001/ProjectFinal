@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Repository\XMLRepository;
+use App\Http\Repository\XMLRepository;
 use App\Http\Requests\BalanceTransferRequest;
 use App\Models\AccHistory;
 use App\Models\Account;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AccHistory;
 use App\Models\TransactionControllerRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -43,7 +44,7 @@ class TransactionHistoryController extends Controller
             'userHistory' => $userHistory,
         ]);
     }
-    public function showUserChoice(\Illuminate\Http\Request $request): View
+    public function showUserChoice(Request $request): View
     {
         $choiceUser=$request->get('user-choice') ?? 5;
         var_dump($choiceUser);
@@ -62,7 +63,7 @@ class TransactionHistoryController extends Controller
             'userHistory' => $userHistory,
         ]);
     }
-    public function showSearchByDate(\Illuminate\Http\Request $request)
+    public function showSearchByDate(Request $request)
     {
         $start_date=$request->get('start_date');
         $end_date=$request->get('end_date');

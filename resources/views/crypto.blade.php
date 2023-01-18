@@ -20,8 +20,8 @@
             @foreach($crypt as $crypto)
 
                     <li>
-                        <b class="name text-gray-700 text-lg">{{ $crypto->getSymbol() }}</b><br>
-                        <div class="species human text-sm">
+                        <a href="/crypto{{ $crypto->getSymbol() }}"  class="name text-gray-700 text-lg">{{ $crypto->getSymbol() }}</a><br>
+                        <div class="species human text-sm" >
                             Price: {{ $crypto->getPrice() }}<br>
                         </div>
                         <div class="species text-sm">
@@ -34,7 +34,24 @@
                             : {{ $crypto->getPriceChange7d() }}<br>
                         </div>
                     </li>
-
+            <div class="flex justify-center">
+                <form action="/crypto{{ $crypto->getSymbol()  }}" method="post" class="mr-4">
+                    <label>
+                        <input type="text" name="buyAmount" placeholder="Enter amount">
+                    </label>
+                    <button class="px-4 py-2 rounded bg-green-500 text-white font-bold" type="submit">
+                        Buy
+                    </button>
+                </form>
+                <form action="/crypto{{ $crypto->getSymbol()  }}" method="post">
+                    <label>
+                        <input type="text" name="sellAmount" placeholder="Enter amount">
+                    </label>
+                    <button class="px-4 py-2 rounded bg-red-500 text-white font-bold" type="submit">
+                        Sell
+                    </button>
+                </form>
+            </div>
             @endforeach
         </div>
     </div>
