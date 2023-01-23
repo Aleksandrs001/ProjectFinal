@@ -20,7 +20,7 @@ class CoinMarketCapRepository
         $url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest';
         $parameters = [
             'symbol' => $this->request  ,
-            'convert' => 'USD'
+            'convert' => 'EUR'
         ];
 
         $headers = [
@@ -48,11 +48,13 @@ class CoinMarketCapRepository
                 $crypto->id,
                 $crypto->name,
                 $crypto->symbol,
-                $crypto->quote->USD->price,
-                $crypto->quote->USD->percent_change_1h,
-                $crypto->quote->USD->percent_change_24h,
-                $crypto->quote->USD->percent_change_7d,
+                $crypto->quote->EUR->price,
+                $crypto->quote->EUR->percent_change_1h,
+                $crypto->quote->EUR->percent_change_24h,
+                $crypto->quote->EUR->percent_change_7d,
             );}
+
+        var_dump($cryptoData);die;
         return $crypt;
     }
 }

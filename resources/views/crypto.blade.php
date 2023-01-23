@@ -22,7 +22,7 @@
                     <li>
                         <a href="/crypto{{ $crypto->getSymbol() }}"  class="name text-gray-700 text-lg">{{ $crypto->getSymbol() }}</a><br>
                         <div class="species human text-sm" >
-                            Price: {{ $crypto->getPrice() }}<br>
+                            Price: {{ $crypto->getPrice()|number_format(3) }}<br>
                         </div>
                         <div class="species text-sm">
                             : {{ $crypto->getPriceChange1h() }}<br>
