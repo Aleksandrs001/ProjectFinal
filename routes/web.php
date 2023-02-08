@@ -33,10 +33,14 @@ Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard')
     Route::get('/transaction-history-search-', [TransactionHistoryController::class, 'showSearchByDate'])->name('transaction-history');
     Route::get('/transaction-history-search-date', [TransactionHistoryController::class, 'showSearchByDate'])->name('transaction-history');
 
+
+//    Route::match(['GET','POST'],'/buyCrypto', 'CryptoCyrrencyController@buyCrypto');
+
+
     Route::get('/crypto', [CryptoCyrrencyController::class, 'showForm'])->name('crypto');
     Route::get('/crypto{symbol}', [CryptoCyrrencyController::class, 'userChoice'])->name('crypto');
-    Route::post('/cryptoBuy', [CryptoBuyController::class, 'buyCrypto'])->name('crypto');
-    Route::post('/cryptoSell', [CryptoSellController::class, 'sellCrypto'])->name('crypto');
+   Route::match(['POST','GET'],'/cryptoBuy', [CryptoBuyController::class, 'buyCrypto'])->name('crypto');
+    Route::post('/cryptoSell{symbol}', [CryptoSellController::class, 'sellCrypto'])->name('crypto');
 
     Route::post('/balance-transfer', [BalanceTransferController::class, 'transfer'])->name('balance-transfer');
     Route::post('/createCurrencyAcc', [CreateCurrencyAcc::class, 'createCurrencyAcc'])->name('createCurrencyAcc');

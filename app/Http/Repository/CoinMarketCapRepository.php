@@ -53,8 +53,6 @@ class CoinMarketCapRepository
                 $crypto->quote->EUR->percent_change_24h,
                 $crypto->quote->EUR->percent_change_7d,
             );}
-
-        var_dump($cryptoData);die;
         return $crypt;
     }
 }

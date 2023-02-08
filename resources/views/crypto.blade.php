@@ -38,8 +38,9 @@
                 <form action="/cryptoBuy" method="post" >
                     @csrf
                     <label>
-                        <input type="text" name="buyAmount" placeholder="Enter amount">
+                        <input type="text" name="buyAmount"  placeholder="Enter amount">
                     </label>
+                    <input type="hidden" name="symbol" value="{{ $crypto->getSymbol() }}">
                     <button class="px-4 py-2 rounded bg-green-500 text-black font-bold" type="submit">
                         Buy
                     </button>
