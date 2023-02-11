@@ -34,4 +34,9 @@ class Account extends Model
     {
         return $this->belongsTo(UserCard::class);
     }
+    public function crypto(): BelongsTo
+    {
+        return $this->belongsTo(Crypto::class);
+    }
+
 }

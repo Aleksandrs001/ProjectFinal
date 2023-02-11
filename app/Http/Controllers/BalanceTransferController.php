@@ -64,7 +64,7 @@ class BalanceTransferController extends Controller
             'user_id' => $toAccount->user_id,
             'currency_symbol' => $fromAccount->valute,
             'history' => 'Received ' . $amount / 100 * $fromRate[$toAccount->valute] .
-                ' ' . $fromAccount->valute . ' from ' .
+                ' ' . $toAccount->valute . ' from ' .
                 $fromAccount->number . ' to ' . $toAccount->number,
             'transferred_from' => $fromAccount->number,
             'transferred_to' => $toAccount->number,

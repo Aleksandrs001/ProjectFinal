@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('crypto',function (blueprint $table){
+        Schema::create('cryptos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('acc_id')->unsigned();
+            $table->bigInteger('acc_id')->nullable();
+            $table->string('acc_number')->nullable();
             $table->string('crypto_symbol')->nullable();
             $table->string('crypto_info')->nullable();
             $table->string('crypto_buy_price')->nullable();
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->string('crypto_amount')->nullable();
             $table->string('crypto_buy_price*amount')->nullable();
             $table->string('crypto_sell_price*amount')->nullable();
+            $table->string('crypto_buy_valute')->nullable();
+            $table->string('crypto_sell_valute')->nullable();
             $table->timestamps();
         });
     }

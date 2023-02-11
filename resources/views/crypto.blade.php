@@ -41,21 +41,45 @@
                         <input type="text" name="buyAmount"  placeholder="Enter amount">
                     </label>
                     <input type="hidden" name="symbol" value="{{ $crypto->getSymbol() }}">
+                    <div class="mb-4">
+                        <label for="account" class="sr-only">Account</label>
+                        <select name="from_account" id="from_account"
+                                class="bg-white border-2 w-full p-4 rounded-lg">
+                            @foreach($accounts as $account)
+                                <option value="{{ $account->number }}">
+                                    {{ $account->number }}
+                                    / {{ $account->getFormattedBalance() }} {{ $account->currencySymbol}}</option>
+                            @endforeach
+                        </select>
                     <button class="px-4 py-2 rounded bg-green-500 text-black font-bold" type="submit">
                         Buy
                     </button>
+                    </div>
                 </form>
                 <form action="/cryptoSell" method="post">
                     @csrf
                     <label>
                         <input type="text" name="sellAmount" placeholder="Enter amount">
                     </label>
+                    <input type="hidden" name="symbol" value="{{ $crypto->getSymbol() }}">
+                    <div class="mb-4">
+                    <select name="from_account" id="from_account"
+                            class="bg-white border-2 w-full p-4 rounded-lg">
+                        @foreach($accounts as $account)
+                            <option value="{{ $account->number }}">
+                                {{ $account->number }}
+                                / {{ $account->getFormattedBalance() }} {{ $account->currencySymbol}}</option>
+                        @endforeach
+                    </select>
                     <button class="px-4 py-2 rounded bg-red-500 text-black font-bold" type="submit">
                         Sell
                     </button>
+                    </div>
                 </form>
             </div>
             @endforeach
+        <div>
+            @if(isset($message)) {{$message}} @endif
         </div>
     </div>
 </x-app-layout>

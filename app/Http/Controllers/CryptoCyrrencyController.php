@@ -17,8 +17,10 @@ class CryptoCyrrencyController extends Controller
     {
         $userChoice = $request->get('search') ?? 'BTC,ETH,XRP,BCH,ZZZ,LTC,EOS,BNB,BSV,TRX';
         $coinMarketCap = new CoinMarketCapRepository($userChoice);
+        $accounts = Account::where('user_id', Auth::id())->get();
         return view('/crypto', [
             'crypt' => $coinMarketCap->getData(),
+            'accounts' => $accounts,
         ]);
     }
 
@@ -31,23 +33,12 @@ class CryptoCyrrencyController extends Controller
             $vars,
             $valuteSymbol,
         );
-//        var_dump($fromRequest);die;
         $coinMarketCap = new CoinMarketCapRepository($vars);
+        $accounts = Account::where('user_id', Auth::id())->get();
         return view('/crypto', [
             'crypt' => $coinMarketCap->getData(),
+            'accounts' => $accounts,
         ]);
-    }
-    public function buyCrypto(Request $request)
-    {
-
-        return view('/crypto');
-    }
-
-    public function sellCrypto(Request $request)
-    {
-var_dump("hello");
-        var_dump($request->get('sellAmount'));
-        die;
     }
 }
 
