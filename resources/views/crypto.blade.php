@@ -3,6 +3,9 @@
         <h2 class="text-center font-semibold text-xl text-gray-800 leading-tight">
             CoinMarketCap
         </h2>
+        <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+
+
         <form action="/crypto" method="get">
             <div class="relative rounded-md shadow-sm">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -15,36 +18,37 @@
         </form>
 
     </x-slot>
-    <div class="container">
-        <div class="bg-gray-200 p-4 m-2 flex-1 w-1/4"
+    <div class="flex justify-center">
+        <div class="bg-white-400 p-4 m-2 flex-1 w-1/4 rounded-lg">
             @foreach($crypt as $crypto)
 
-                    <li>
-                        <a href="/crypto{{ $crypto->getSymbol() }}"  class="name text-gray-700 text-lg">{{ $crypto->getSymbol() }}</a><br>
-                        <div class="species human text-sm" >
-                            Price: {{ $crypto->getPrice()|number_format(3) }}<br>
+                    <p>
+                        <a href="/crypto{{ $crypto->getSymbol() }}"  class= "flex justify-center font-bold text-gray-700 text-xl ">{{ $crypto->getSymbol() }}</a><br>
+                        <div class="flex justify-center" >
+                            Price: {{ $crypto->getPrice() }}<br>
                         </div>
-                        <div class="species text-sm">
+                        <div class="flex justify-center">
                             : {{ $crypto->getPriceChange1h() }}<br>
                         </div>
-                        <div class="gender text-sm">
+                        <div class="flex justify-center">
                             : {{ $crypto->getPriceChange24h() }}<br>
                         </div>
-                        <div class="status alive text-sm">
-                            : {{ $crypto->getPriceChange7d() }}<br>
+                        <div class="flex justify-center">
+                            : {{ $crypto->getPriceChange7d() }}<br><br>
                         </div>
-                    </li>
+
+
             <div class="flex justify-center">
                 <form action="/cryptoBuy" method="post" >
                     @csrf
-                    <label>
-                        <input type="text" name="buyAmount"  placeholder="Enter amount">
+                    <label class= " bg-grey-4  ">
+                        <input type="text" name="buyAmount"  placeholder="Enter amount" >
                     </label>
                     <input type="hidden" name="symbol" value="{{ $crypto->getSymbol() }}">
-                    <div class="mb-4">
+                    <div class="flex justify-center mb-4">
                         <label for="account" class="sr-only">Account</label>
                         <select name="from_account" id="from_account"
-                                class="bg-white border-2 w-full p-4 rounded-lg">
+                                class="bg-grey border-2 w-full p-4 rounded-lg">
                             @foreach($accounts as $account)
                                 <option value="{{ $account->number }}">
                                     {{ $account->number }}
@@ -58,13 +62,13 @@
                 </form>
                 <form action="/cryptoSell" method="post">
                     @csrf
-                    <label>
+                    <label class= " bg-red border-2 ">
                         <input type="text" name="sellAmount" placeholder="Enter amount">
                     </label>
                     <input type="hidden" name="symbol" value="{{ $crypto->getSymbol() }}">
-                    <div class="mb-4">
+                    <div class=" flex justify-center mb-4">
                     <select name="from_account" id="from_account"
-                            class="bg-white border-2 w-full p-4 rounded-lg">
+                            class="bg-grey border-2 w-full p-4 rounded-lg">
                         @foreach($accounts as $account)
                             <option value="{{ $account->number }}">
                                 {{ $account->number }}

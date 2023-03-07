@@ -22,7 +22,6 @@ class CryptoBuyController extends Controller
     {
         $accounts = Account::where('user_id', Auth::id())->get();
         $currency = $currency->index();
-        $fromRate = [];
         $fromRate= ['EUR' => 1];
         $balanceRequest= $accounts->where('number',$request['from_account'])->first();
         foreach ($currency as $value) {
@@ -37,7 +36,7 @@ class CryptoBuyController extends Controller
         $accNumber = $request['from_account'];
         $coinMarketCap = (new CoinMarketCapRepository($symbol))->getData();
 
-        if ($accounts->user_id = Auth::id() && $balanceRequest['balance'] >= $coinMarketCap[0]->price * $buyAmount) {
+        if ($accounts->user_id = Auth::id() && $balanceRequest['balance'] >= $coinMarketCap[0]->price * $buyAmount * 100 * $fromRate[preg_replace("/[^a-zA-Z]+/", "",$accNumber)]) {
             DB::table(self::CRYPTO_TABLE)->insert([
                 'acc_id' => Auth::id(),
                 'acc_number' => $accNumber,
@@ -63,7 +62,7 @@ class CryptoBuyController extends Controller
             $message = 'You do not have enough ' . preg_replace("/[^a-zA-Z]+/", "",$accNumber) . ' to buy ' . $symbol;
         }
 
-        $accounts = Account::where('user_id', Auth::id())->get();
+
         return view('/crypto', [
             'crypt' => $coinMarketCap,
             'accounts' => $accounts,

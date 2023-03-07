@@ -12,7 +12,6 @@ class CoinMarketCapRepository
     public function __construct($request)
     {
         $this->request = $request;
-//        var_dump($this->request);die;
     }
 
     public function getData(): array

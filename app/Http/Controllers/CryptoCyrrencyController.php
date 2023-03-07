@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CryptoCyrrencyController extends Controller
 {
-
+    private const ACCOUNTS= 'Account';
     public function showForm(Request $request): View
     {
         $userChoice = $request->get('search') ?? 'BTC,ETH,XRP,BCH,ZZZ,LTC,EOS,BNB,BSV,TRX';

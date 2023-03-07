@@ -20,6 +20,7 @@ class CreateCurrencyAcc extends Controller
                 'number' => $request->get('valute') . rand(1000000000, 9999999999),
                 'valute' => $request->get('valute'),
                 'balance' => 0,
+                'created_at' => now(),
 
 
             ]);

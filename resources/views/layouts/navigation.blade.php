@@ -50,6 +50,9 @@
                         <x-dropdown-link href="/transaction-history">
                             Transaction History
                         </x-dropdown-link>
+                        <x-dropdown-link href="/crypto">
+                            Crypto Trade
+                        </x-dropdown-link>
 
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
