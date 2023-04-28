@@ -25,6 +25,7 @@ class BalanceTransferController extends Controller
 
     public function transfer(BalanceTransferRequest $request, XMLRepository $currency): RedirectResponse
     {
+
         Session::put("rand", rand(0, 9));
 
         $fromAccount = Account::findOrFail($request->get('from_account'));

@@ -24,6 +24,6 @@ class Session extends Controller
 
     public static function getData($key): string
     {
-        return self::$data["$key"];
+        return self::$data[$key];
     }
 }

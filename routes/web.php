@@ -8,6 +8,7 @@ use App\Http\Controllers\CryptoCyrrencyController;
 use App\Http\Controllers\CryptoSellController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Session;
+use App\Http\Controllers\Test;
 use App\Http\Controllers\TransactionHistoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,13 +16,15 @@ use Illuminate\Support\Facades\Route;
 
 
 Session::initialize();
+Route::get('/test', [Test::class, 'run'])->name('test');
+
 Route::get('/', function () {
     return view('welcome');
 }
 )->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [AccountController::class, 'index'])->name('dashboard');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
