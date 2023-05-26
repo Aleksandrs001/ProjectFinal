@@ -40,6 +40,10 @@
                             Home
                         </x-dropdown-link>
 
+                        <x-dropdown-link href="/dashboard">
+                            Dashboard
+                        </x-dropdown-link>
+
                         <x-dropdown-link href="/balance-transfer">
                             Balance Transfer
                         </x-dropdown-link>

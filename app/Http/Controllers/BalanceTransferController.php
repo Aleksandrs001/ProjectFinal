@@ -14,7 +14,7 @@ class BalanceTransferController extends Controller
 {
     public function showForm(XMLRepository $currency): View
     {
-//        Session::put("rand", rand(0, 9));
+        Session::put("rand", rand(0, 9));
         $accounts = Account::where('user_id', Auth::id())->get();
         return view('balance-transfer', [
             'accounts' => $accounts,

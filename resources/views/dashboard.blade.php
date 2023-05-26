@@ -49,5 +49,12 @@
             </div>
         </div>
     </form>
+    @if (session('status'))
+        <div class="bg-red-600  shadow-sm sm:rounded-lg">
+            <div class="p-6 text-white">
+                {{ session('status') }}
+            </div>
+        </div>
+    @endif
 
 </x-app-layout>

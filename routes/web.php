@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/balance-transfer', [BalanceTransferController::class, 'transfer'])->name('balance-transfer');
     Route::post('/createCurrencyAcc', [CreateCurrencyAcc::class, 'createCurrencyAcc'])->name('createCurrencyAcc');
     Route::get('/accounts/{account}/edit', [AccountController::class, 'edit'])->name('accounts.edit');
+    Route::post('/accounts/{account}/softDelete', [AccountController::class, 'softDelete'])->name('accounts.softDelete');
     Route::put('/accounts/{account}', [AccountController::class, 'update'])->name('accounts.update');
 });
 
